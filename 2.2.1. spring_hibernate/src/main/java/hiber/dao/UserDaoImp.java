@@ -29,7 +29,9 @@ public class UserDaoImp implements UserDao {
    }
 // старая версия реализаия метода getUserAuto (костыльная)
 /*   public User getUserAuto(String car_name, int car_series){
-      Query getUserQuery = sessionFactory.getCurrentSession().createQuery("from Car where model = :model and series = :series")
+      Query getUserQuery = sessionFactory
+              .getCurrentSession()
+              .createQuery("from Car where model = :model and series = :series")
               .setParameter("model", car_name)
               .setParameter("series", car_series);
       List <Car> getUser = getUserQuery.getResultList();
@@ -48,11 +50,12 @@ public class UserDaoImp implements UserDao {
 @Override
 @SuppressWarnings("unchecked")
 public User getUserAuto(String car_name, int car_series) {
-TypedQuery<User> query = sessionFactory.getCurrentSession()
-        .createQuery("from Car where model = :model and series = :series")
+TypedQuery<User> query = sessionFactory
+        .getCurrentSession()
+        .createQuery("from User user" +
+                " where user.auto.model = :model and user.auto.series = :series")
         .setParameter("model", car_name)
         .setParameter("series", car_series);
    return query.getSingleResult();
    }
-
 }
